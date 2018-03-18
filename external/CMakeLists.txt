@@ -25,16 +25,10 @@ if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/glfw/CMakeLists.txt")
 endif (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/glfw/CMakeLists.txt")
 
 add_subdirectory(glfw EXCLUDE_FROM_ALL)
-
 set(LIBRARIES ${LIBRARIES} glfw)
 
-if (NOT APPLE)
-    add_subdirectory(glad EXCLUDE_FROM_ALL)
-
-    set(LIBRARIES ${LIBRARIES} glad)
-
-    target_include_directories(external_libraries INTERFACE glad/include)
-endif (NOT APPLE)
+add_subdirectory(gl EXCLUDE_FROM_ALL)
+set(LIBRARIES ${LIBRARIES} gl_wrapper)
 
 add_subdirectory(stb_image EXCLUDE_FROM_ALL)
 set(LIBRARIES ${LIBRARIES} stb_image)
@@ -43,8 +37,6 @@ target_include_directories(
         external_libraries
         INTERFACE
         glm
-        glfw/include
-        stb_image/include
         ${BULLET_INCLUDE_DIR}
 )
 
